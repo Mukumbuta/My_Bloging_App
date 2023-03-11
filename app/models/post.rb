@@ -3,8 +3,12 @@ class Post < ApplicationRecord
   has_many :comments
   has_many :likes
 
+  after_save :update_posts_counter
+
+  private
+
   def update_posts_counter
-    author.update(posts_counter: author.posts_counter + 1)
+    author.increment!(:posts_counter)
   end
 
   def retrieve_recent_comments
