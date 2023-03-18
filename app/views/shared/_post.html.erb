@@ -1,0 +1,8 @@
+<div>
+    <h3 class="font-bold">Post #<%= post.id%></h3>
+    <div>
+        <h4><%= post.title%></h4>
+        <p><%= post.text %></p>
+         <%= render 'shared/comments_likes', post: post%>
+    </div>
+</div>

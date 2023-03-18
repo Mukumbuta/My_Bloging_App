@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   def index
-    @users = 'This is a list of all users'
+    @users = User.all
   end
 
   def show
-    @user = "These are the details of only one user whose id is #{params[:id]}"
+    @user = User.find(params[:id])
   end
 end

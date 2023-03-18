@@ -1,1 +1,22 @@
-<p><%= @user %></p>
+<section>
+    <%= render "shared/user", user: @user %>
+
+    <article>
+        <div class="border px-4 py-4 my-4">
+          <h2 class="bio text-xl font-bold">Bio</h2>
+          <p><%= @user.bio %></p>
+        </div>
+
+        <ul class="border px-4 py-4">
+          <% @user.latest_three_posts.each do |post|%>
+            <li>
+              <%= render "shared/post", post: post %>
+            </li>
+          <% end %>
+        </ul>
+
+        <%= link_to user_posts_path(@user) do %>
+            <button class="bg-slate-500 text-white px-3 py-1 rounded shadow mt-5 hover:bg-slate-600 active:scale-105">See all posts</button>
+        <% end %>
+    </article>
+</section>

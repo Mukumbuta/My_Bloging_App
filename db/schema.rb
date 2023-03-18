@@ -16,7 +16,6 @@ ActiveRecord::Schema[7.0].define(version: 20_221_203_083_156) do # rubocop:disab
 
   create_table 'comments', force: :cascade do |t|
     t.text 'text'
-    t.integer 'comments_counter'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.bigint 'author_id', null: false
@@ -37,8 +36,8 @@ ActiveRecord::Schema[7.0].define(version: 20_221_203_083_156) do # rubocop:disab
   create_table 'posts', force: :cascade do |t|
     t.string 'title'
     t.text 'text'
-    t.integer 'comments_counter'
-    t.integer 'likes_counter'
+    t.integer 'comments_counter', default: 0
+    t.integer 'likes_counter', default: 0
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.bigint 'author_id', null: false
@@ -49,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 20_221_203_083_156) do # rubocop:disab
     t.string 'name'
     t.string 'photo'
     t.string 'bio'
-    t.integer 'posts_counter'
+    t.integer 'posts_counter', default: 0
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
