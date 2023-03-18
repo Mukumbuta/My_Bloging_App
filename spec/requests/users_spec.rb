@@ -38,5 +38,10 @@ RSpec.describe 'Users', type: :request do
       get '/users/1'
       expect(response.body).to include('These are the details of only one user whose id is 1')
     end
+
+    it 'renders the correct view template' do
+      get root_path
+      expect(response).to render_template(:index)
+    end
   end
 end
