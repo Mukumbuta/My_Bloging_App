@@ -1,0 +1,11 @@
+
+<div class="flex gap-3">
+    <div>
+        <%= image_tag user.photo, atl: "#{user.name}-avatar", class: "block w-[90px] h-20 rounded-full" %>
+    </div>
+
+    <div>
+        <h3 class="name text-xl font-bold"><%= user.name %></h3>
+        <span>Number of posts <%= user.posts_counter %></span>
+    </div>
+</div>

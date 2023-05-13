@@ -1,0 +1,14 @@
+<section>
+    <div class="border">
+        <div class="flex justify-between">
+            <h3>Post #<%= @post.id%> by <%=@post.author.name %></h3>
+            <%= render 'shared/comments_likes', post:@post%>
+        </div>
+
+        <p class="mt-5"><%= @post.text %></p>
+    </div>
+
+    <div class="border mt-6">
+        <%= render 'shared/name_comment', comments: @post.comments %>
+    </div>
+</section>
