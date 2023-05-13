@@ -1,0 +1,19 @@
+<div class="user-info flex">
+  <%= render 'partials/user', user: @user %>
+
+  <div class='bio'>
+    <p><%= @user.bio %></p>
+  </div>
+
+  <div class='card'>
+      <% @user.recent_three_posts.each do |post| %>
+        <a href="/users/<%= @user.id %>/posts/<%= post.id %> ">
+          <%= render 'partials/post', post: post %>
+        </a>
+      <% end %>
+  </div>
+
+  <button>
+    <%= link_to "See all posts", user_posts_path(user_id: @user.id)%>
+  </button>
+</div>
