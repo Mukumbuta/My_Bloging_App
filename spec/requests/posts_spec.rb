@@ -1,35 +1,50 @@
-require 'rails_helper'
+require_relative 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
-  context 'status is succesful ' do
-    it 'index returns a success response' do
-      get '/users/1/posts'
-      expect(response).to be_successful
-    end
+  before(:each) do
+    @user = User.create(name: 'Alena', posts_counter: 2)
+    @post = Post.create(
+      # author_id: @user,
+      title: 'Post title',
+      text: 'Post text',
+      comments_counter: 0,
+      likes_counter: 0
+    )
+    Comment.create(text: 'You are beautiful')
+    Comment.create(text: '')
+    Comment.create(text: 'mamah love you')
   end
-  context 'the right place holder text is rendered ' do
-    it 'renders all posts for a particular user on the page ' do
-      get '/users/1/posts'
-      expect(response.body).to include('The following is a list of posts')
-    end
 
-    it 'renders all the specifics of a single post based on the id ' do
-      get '/users/1/posts/3'
-      expect(response.body).to include('This is a post whose id is 3')
+  describe 'GET /index' do
+    before(:each) do
+      get user_posts_path(@user)
+    end
+    it 'returns http success' do
+      expect(response).to have_http_status(200)
+    end
+    it 'return rendered template' do
+      expect(response).to render_template(:index)
+    end
+    it 'response body includes placeholer' do
+      expect(response.body).to include 'Find me in app/views/posts/index.html.erb'
     end
   end
 
   describe 'GET /show' do
-    before :each do
-      get '/users/:user_id/posts/:id'
+    before(:each) do
+      get user_posts_path(@user, @post)
     end
 
     it 'returns http success' do
-      expect(response).to have_http_status(:success)
+      get '/posts/show'
+      expect(response).to have_http_status(200)
     end
-
-    it 'should render show' do
+    it 'rendered template' do
+      get '/posts/show'
       expect(response).to render_template(:show)
+    end
+    it 'check for placeholder text' do
+      expect(response.body).to include 'Find me in app/views/posts/show.html.erb'
     end
   end
 end

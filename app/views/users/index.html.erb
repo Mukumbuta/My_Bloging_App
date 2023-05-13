@@ -1,12 +1,10 @@
-<h1 class="users font-bold text-3xl">A list of all users </h1>
-<br>
-<ul>
-    <% @users.each do |user| %>
-        <li class="border mb-4 hover:bg-slate-200">
-           <%= link_to user_path(user) do %>
-                <%= render "shared/user", user: user %>
-           <% end %>
-
-        </li>
-    <% end %>
-</ul>
+<h1> List all users </h1>
+<div>
+   <ul class='list'>
+      <% @users.each do |user| %>
+        <a href='/users/<%= user.id %>'>
+         <%= render 'partials/user', user: user %>
+         </a>
+      <% end %>
+   </ul>
+</div>

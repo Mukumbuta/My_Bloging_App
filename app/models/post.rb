@@ -1,25 +1,20 @@
-class Post < ApplicationRecord
-  after_save :update_posts_counter
-
-  belongs_to :author, class_name: 'User'
+class Post < ActiveRecord::Base
+  belongs_to :user
   has_many :comments
   has_many :likes
 
-  validates :title, presence: true, allow_blank: false, allow_nil: false, length: { maximum: 250 }
-  validates :comments_counter, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :likes_counter, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  after_create :update_posts_counter
 
-  def retrieve_recent_comments
-    comments.order(created_at: :desc).limit(5)
-  end
-
-  private
+  validates :title, presence: true
+  validates :title, length: { maximum: 250 }
+  validates :comments_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :likes_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def update_posts_counter
-    author.increment!(:posts_counter)
+    user.increment!(:post_counter)
   end
 
-  def update_likes_counter
-    post.increment!(:likes_counter)
+  def recent_five_comments
+    comments.last(5)
   end
 end

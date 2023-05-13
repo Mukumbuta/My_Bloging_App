@@ -1,14 +1,13 @@
-<section>
-    <div class="border">
-        <div class="flex justify-between">
-            <h3>Post #<%= @post.id%> by <%=@post.author.name %></h3>
-            <%= render 'shared/comments_likes', post:@post%>
-        </div>
-
-        <p class="mt-5"><%= @post.text %></p>
-    </div>
-
-    <div class="border mt-6">
-        <%= render 'shared/name_comment', comments: @post.comments %>
-    </div>
-</section>
+<h1> show post for a given user</h1>
+<div>
+  <div>
+    <h3> <%=@post.title%> by <%= @user.name%> </h3>
+    <p> <%= @post.text%> </p>
+    <p> Comments: <%= @post.comments_counter %>, Likes: <%= @post.likes_counter %> </p>
+  </div>
+  <div>
+    <% @post.recent_five_comments.each do |comment| %>
+      <p> <%= comment.user.name%>: <%= comment.text%><p>
+    <% end %>  
+  </div>
+</div>
