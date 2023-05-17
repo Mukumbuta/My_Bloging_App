@@ -49,5 +49,15 @@ RSpec.describe 'PostIndex', type: :feature do
     it 'displays the post comments' do
       expect(page).to have_content(@post.comment_counter)
     end
+    it 'displays the post likes counter' do
+      expect(page).to have_content(@post.like_counter)
+    end
+    it 'displays the post author name' do
+      expect(page).to have_content(@post.user.Name)
+    end
+    it 'redirects to posts show page' do
+      click_link @post4.Title
+      expect(page).to have_current_path user_post_path(@user, @post4)
+    end
   end
 end
